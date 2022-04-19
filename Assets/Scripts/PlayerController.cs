@@ -7,11 +7,11 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed;
     [SerializeField] private GameObject _playerSkin;
     [SerializeField] private GameObject _playerPlatform;
-    private Animator _animator;
+    public Animator animator;
 
-    [SerializeField] private Vector3 _newPlatformPos;
-    [SerializeField] private Vector3 _newPlatformScale;
-    [SerializeField] private Vector3 _newSkinPos;
+    private Vector3 _newPlatformPos;
+    private Vector3 _newPlatformScale;
+    private Vector3 _newSkinPos;
 
     [SerializeField] private bool _isChanging;
 
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody>();
-        _animator = _playerSkin.GetComponent<Animator>();
+        animator = _playerSkin.GetComponent<Animator>();
         _velocity = transform.forward;
 
         _newPlatformPos = _playerPlatform.transform.localPosition;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (!_playerPlatform.activeSelf)
+        if (!_playerPlatform.activeSelf || GameManager.instance.isLevelDone)
         {
             _rigidBody.velocity = Vector3.zero;
             return;
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
             _playerPlatform.SetActive(false);
             _newPlatformScale = new Vector3(0, 0, 0);
             _newSkinPos = new Vector3(0, -.5f, 0);
-            _animator.SetTrigger("Defeat");
+            animator.SetTrigger("Defeat");
         }
     }
 

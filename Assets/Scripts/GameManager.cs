@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
 
     private int _remainedPowerUps;
-
+    [HideInInspector] public bool isLevelDone;
     private void Awake() => instance = this;
 
     private void Start()
@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
         _remainedPowerUps = 5;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         uiManager = gameObject.GetComponent<UIManager>();
+
+        Actions.OnLevelSuccesful += GiveCoinToPlayer;
+        Actions.OnLevelSuccesful += SaveProgression;
+        Actions.OnLevelSuccesful += FinishSuccesfuly;
     }
     public void UsePowerUp()
     {
@@ -36,5 +40,21 @@ public class GameManager : MonoBehaviour
         playerController.playerSpeed /= 2;
 
         uiManager.powerUpButton.interactable = _remainedPowerUps > 0 ? true : false;
+    }
+
+    private void SaveProgression()
+    {
+
+    }
+
+    private void GiveCoinToPlayer()
+    {
+        int coinAmount = Mathf.RoundToInt(playerController.gameObject.transform.localScale.y * 10);
+    }
+
+    private void FinishSuccesfuly()
+    {
+        isLevelDone = true;
+        playerController.animator.SetTrigger("Victory");
     }
 }
