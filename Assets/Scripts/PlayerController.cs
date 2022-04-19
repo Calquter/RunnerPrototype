@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rigidBody;
-    [SerializeField] private float _playerSpeed;
+    public float playerSpeed;
     [SerializeField] private GameObject _playerSkin;
     [SerializeField] private GameObject _playerPlatform;
     private Animator _animator;
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        _rigidBody.velocity = _velocity.normalized * _playerSpeed;
+        _rigidBody.velocity = _velocity.normalized * playerSpeed;
     }
 
     private void ScaleControl()
