@@ -11,6 +11,9 @@ public class CBuff : Collectable
     protected override void OnItemCollected(GameObject obj)
     {
         obj.GetComponent<PlayerController>().CalculateBuffEffects(base.effectRate);
+        GameManager.instance.CalculateGainedCoin();
+        GameManager.instance.PlayGatherParticle(transform.position);
         gameObject.SetActive(false);
+        
     }
 }
