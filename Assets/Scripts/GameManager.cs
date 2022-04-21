@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour
     {
         int sceneBuildIndex = PlayerPrefs.GetInt("myLevelProgression") >= 2 ? 0 : PlayerPrefs.GetInt("myLevelProgression");
         PlayerPrefs.SetInt("myLevelProgression", sceneBuildIndex);
-        print(sceneBuildIndex);
         SceneManager.LoadScene(sceneBuildIndex);
     }
     public void RetryLevel() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);

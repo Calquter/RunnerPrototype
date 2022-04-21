@@ -2420,22 +2420,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4404996496461635920, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 317.163
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996496461635920, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -3.236023
-      objectReference: {fileID: 0}
     - target: {fileID: 4404996496784310927, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1616351564}
-    - target: {fileID: 4404996497351188975, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -5
-      objectReference: {fileID: 0}
     - target: {fileID: 4404996497597207922, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -2528,62 +2516,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1616351564}
-    - target: {fileID: 4404996497827690846, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1719.454
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497827690846, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 701.1454
-      objectReference: {fileID: 0}
     - target: {fileID: 4404996497971814144, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1616351564}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.89940745
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.23354167
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.89940745
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.23354167
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 272.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 175.135
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 244.594
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996497971814147, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 4404996498143940645, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1616351564}
-    - target: {fileID: 4404996498253387161, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 317.163
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404996498253387161, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -3.236023
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eff5d018c75b6443a89b45150270dd4, type: 3}
 --- !u!1001 &5569658640749329894
