@@ -3,26 +3,27 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody _rigidBody;
     public float playerSpeed;
     [SerializeField] private GameObject _playerSkin;
-    public ParticleSystem gatherParticle;
-    private Material _playerPlatformMat;
     public GameObject playerPlatform;
     public Animator animator;
+    public ParticleSystem gatherParticle;
+
+    private Rigidbody _rigidBody;
+    private Material _playerPlatformMat;
+    private Touch _touch;
 
     private Vector3 _newPlatformPos;
-    [SerializeField] private Vector3 _newPlatformScale;
+    private Vector3 _newPlatformScale;
     private Vector3 _newSkinPos;
 
-    [SerializeField] private bool _isChanging;
-    public bool isTurning;
+    [HideInInspector] public bool isTurning;
 
     private Vector3 _velocity;
     private float _velocityX;
-    public float newDirection = 0;
+    [HideInInspector] public float newDirection = 0;
 
-    private Touch _touch;
+    
 
     private float _playerCurrentPosRef;
     private float _platformCurrentScaleRef;
@@ -34,7 +35,6 @@ public class PlayerController : MonoBehaviour
         _rigidBody = gameObject.GetComponent<Rigidbody>();
         animator = _playerSkin.GetComponent<Animator>();
         
-
         _newPlatformPos = playerPlatform.transform.localPosition;
         _newPlatformScale = playerPlatform.transform.localScale;
         _newSkinPos = _playerSkin.transform.localPosition;
@@ -47,44 +47,54 @@ public class PlayerController : MonoBehaviour
     {
         GetInputs();
         Move();
-
         ChangePlayerTransforms();
     }
 
     private void GetInputs()
     {
+
         if (!isTurning)
         {
 
 #if UNITY_EDITOR
             _velocityX = Input.GetAxisRaw("Horizontal");
-
 #else
-            if (_touch.tapCount > 0)
+            if (Input.touchCount > 0)
+            {
+                _touch = Input.GetTouch(0);
+
+                if (_touch.phase == TouchPhase.Moved)
                 {
-                    _velocity.x = _touch.deltaPosition.x;
+                    if (_touch.deltaPosition.x > 0.01f)
+                        _velocityX = 1;
+                    else if (_touch.deltaPosition.x < -0.01f)
+                        _velocityX = -1;
                 }
+                else
+                    _velocityX = 0;
+            }
+            else
+                _velocityX = 0;
 #endif
+
 
         }
         else
             _velocityX = 0;
-
     }
-
 
     private void Move()
     {
-        _velocity = transform.forward + transform.right * _velocityX;
-
-        if (!GameManager.instance.isGameStarted)
+        if (GameManager.instance.levelStatus == LevelStatus.UnDetermined)
             return;
 
-        if (!playerPlatform.activeSelf || GameManager.instance.isLevelSucces)
+        if (!playerPlatform.activeSelf || GameManager.instance.levelStatus == LevelStatus.Success)
         {
             _rigidBody.velocity = Vector3.zero;
             return;
         }
+
+        _velocity = transform.forward + transform.right * _velocityX;
 
         _rigidBody.velocity = _velocity.normalized * playerSpeed;
         transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, newDirection, 0), Time.deltaTime * 3.5f);
@@ -95,10 +105,10 @@ public class PlayerController : MonoBehaviour
         if (_newPlatformScale.y <= 0)
         {
             playerPlatform.SetActive(false);
-            _newPlatformScale = new Vector3(0, 0, 0);
+            _newPlatformScale = Vector3.zero;
             _newSkinPos = new Vector3(0, -.5f, 0);
             animator.SetTrigger("Defeat");
-            GameManager.instance.isLevelFailed = true;
+            GameManager.instance.levelStatus = LevelStatus.Fail;
         }
     }
 
@@ -125,13 +135,6 @@ public class PlayerController : MonoBehaviour
 
         _playerPlatformMat.mainTextureScale = new Vector2(_playerPlatformMat.mainTextureScale.y, Mathf.SmoothDamp(_playerPlatformMat.mainTextureScale.y, playerPlatform.transform.localScale.y,
             ref _platformMaterialTilingRef, .1f));
-    }
-
-    private IEnumerator PermissonToChange(float time)
-    {
-        _isChanging = true;
-        yield return new WaitForSeconds(time);
-        _isChanging = false;
     }
     public IEnumerator PermissonToInputs()
     {

@@ -2,6 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum LevelStatus
+{
+    UnDetermined,
+    Started,
+    Success,
+    Fail
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -9,11 +17,11 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public PlayerController playerController;
 
-    private int _remainedPowerUps;
+    private int _remainedPowerUps = 5;
     public int gainedCoins = 0;
-    [HideInInspector] public bool isLevelSucces;
-    [HideInInspector] public bool isLevelFailed;
-    [HideInInspector] public bool isGameStarted;
+
+    public LevelStatus levelStatus;
+
     private void Awake() => instance = this;
 
     private void Start()
@@ -24,7 +32,6 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != PlayerPrefs.GetInt("myLevelProgression") )
             SceneManager.LoadScene(PlayerPrefs.GetInt("myLevelProgression"));
 
-        _remainedPowerUps = 5;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         uiManager = gameObject.GetComponent<UIManager>();
         uiManager.UpdateGoldText();
@@ -35,15 +42,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (isLevelSucces)
+        if (levelStatus == LevelStatus.Success)
             uiManager.DragPanelToScreen(uiManager.continuePanelRef);
-        else if(isLevelFailed)
+        else if(levelStatus == LevelStatus.Fail)
             uiManager.DragPanelToScreen(uiManager.retryPanelRef);
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            CalculateGainedCoin();
-            print("calculated - " + gainedCoins);
-        }
     }
 
     public void UsePowerUp()
@@ -74,12 +76,11 @@ public class GameManager : MonoBehaviour
     public void CalculateGainedCoin()
     {
         gainedCoins = Mathf.RoundToInt(playerController.playerPlatform.transform.localScale.y * 10);
-        
     }
 
     private void FinishSuccesfuly()
     {
-        isLevelSucces = true;
+        levelStatus = LevelStatus.Success;
     }
 
     public void PlayGatherParticle(Vector3 pos)
@@ -94,12 +95,13 @@ public class GameManager : MonoBehaviour
         uiManager.tapToStartButton.gameObject.SetActive(false);
         playerController.animator.SetTrigger("GameStarted");
         uiManager.StartAnimations();
-        isGameStarted = true;
+        levelStatus = LevelStatus.Started;
     }
     public void ContiuneLevel()
     {
         int sceneBuildIndex = PlayerPrefs.GetInt("myLevelProgression") >= 2 ? 0 : PlayerPrefs.GetInt("myLevelProgression");
         PlayerPrefs.SetInt("myLevelProgression", sceneBuildIndex);
+        print(sceneBuildIndex);
         SceneManager.LoadScene(sceneBuildIndex);
     }
     public void RetryLevel() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);

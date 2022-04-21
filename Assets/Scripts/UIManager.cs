@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _levelText.text = $"Level-{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Substring(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Length - 1)}";
-        Actions.OnLevelSuccesful += VisualizeGainedCoin;
+        Actions.OnLevelSuccesful += ShowGainedCoin;
     }
 
     public void DragPanelToScreen(Image panel)
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
         _goldText.text = PlayerPrefs.GetInt("myGold").ToString();
     }
 
-    public void VisualizeGainedCoin() 
+    public void ShowGainedCoin() 
     {
         _gainedGoldText.text = GameManager.instance.gainedCoins.ToString();
     }

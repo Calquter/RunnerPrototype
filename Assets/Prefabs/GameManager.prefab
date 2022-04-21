@@ -47,9 +47,7 @@ MonoBehaviour:
   uiManager: {fileID: 8443577161484884160}
   playerController: {fileID: 0}
   gainedCoins: 0
-  isLevelSucces: 0
-  isLevelFailed: 0
-  isGameStarted: 0
+  levelStatus: 0
 --- !u!114 &8443577161484884160
 MonoBehaviour:
   m_ObjectHideFlags: 0
